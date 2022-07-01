@@ -1,27 +1,25 @@
-// import React from "react";
-// import { getCharactersData } from "../../GraphQL";
-// import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import { character } from "../../STORE/reducers/character";
+import { useDispatch } from "react-redux";
+import Individual from "../../components/Individual/Individual";
 
-// export const getStaticPaths = async () => {
-//   const router = useRouter();
-//   const { id } = router.query;
+const char = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const id = parseInt(router.query.id);
 
-//   console.log(id, "id");
-// };
+  useEffect(() => {
+    if (id) {
+      dispatch(character(id));
+    }
+  });
 
-// export const getStaticProps = async () => {
-//   const data = await fetch(`https://rickandmortyapi.com/api/character/201`);
+  return (
+    <>
+      <Individual />
+    </>
+  );
+};
 
-//   return {
-//     props: {
-//       individualCharacter: data,
-//     },
-//   };
-// };
-
-// const char = ({ individualCharacter }) => {
-//   console.log(individualCharacter);
-//   return <div>char</div>;
-// };
-
-// export default char;
+export default char;
